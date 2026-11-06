@@ -1,0 +1,33 @@
+{
+ "id": "./",
+ "name": "Pricodex",
+ "short_name": "Pricodex",
+ "description": "Fan-made Princess Connect! Re:Dive (JP) character codex.",
+ "lang": "en",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "background_color": "#F4EBDA",
+ "theme_color": "#F4EBDA",
+ "icons": [
+  {
+   "src": "icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
