@@ -92,6 +92,8 @@ button.dir { border-radius: 6px; padding: 7px 10px; white-space: nowrap; }
 .kit { display: flex; flex-wrap: wrap; gap: 4px; margin: 0; padding: 0; list-style: none; }
 .kit li { font-size: 12.5px; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: 3px 7px; overflow-wrap: anywhere; }
 .kit li i { font: normal 500 10.5px var(--mono); color: var(--muted); margin-right: 5px; }
+.desc.jpx { font-family: var(--display); }
+.kit li .jpk { font: 500 11.5px var(--display); color: var(--muted); margin-left: 6px; }
 .stats { display: flex; flex-wrap: wrap; gap: 4px 14px; font-variant-numeric: tabular-nums; }
 .stats span { font: 500 13px/1.4 var(--mono); white-space: nowrap; }
 .stats span i { font-style: normal; color: var(--muted); font-size: 11px; margin-right: 5px; letter-spacing: .03em; }
@@ -326,7 +328,9 @@ $('#legend').innerHTML = ELEM.slice(1).map((n, i) => `<span><span class="b e" st
   `<span>Positions: Front · Middle · Back</span><label class="jpt"><input type="checkbox" id="jp-toggle"> Show Japanese text</label>`;
 $('#abbr').innerHTML = ST_S.map((s, i) => `<span><code>${s}</code>${ST_F[i]}</span>`).join('');
 $('#jp-toggle').checked = JP;
-$('#jp-toggle').addEventListener('change', e => { JP = e.target.checked; store.set('pc-jp', JP); rerenderOpen(); });
+/* 6 Nov 2026: the toggle used to change only opened details, so on the list it looked broken; it now redraws the cards too
+   (Japanese blurb and skill names) and, through renderCh, the open details. */
+$('#jp-toggle').addEventListener('change', e => { JP = e.target.checked; store.set('pc-jp', JP); renderCh(); });
 
 /* ---------- shared renderers ---------- */
 function statsLine(vals, cls = '') {
@@ -393,10 +397,10 @@ function chEntry(u) {
       <div class="tags"><span class="b e" style="--c:${ECOL[u.t]}">${ELEM[u.t] || '—'}</span><span class="b">${ROLE[u.ro] || '—'}</span>${u.six ? '<span class="b gold">★6</span>' : ''}${ue}${u.lim ? '<span class="b accent">Limited</span>' : ''}</div>
     </div>
     <div class="main">
-      <p class="desc">${esc(u.cm)}</p>
+      <p class="desc">${esc(u.cm)}</p>${JP && u.cmj ? `<p class="desc jpx">${esc(u.cmj)}</p>` : ''}
       ${fxLine(u)}
       ${gwLine(u)}
-      <ul class="kit">${main.map(([k, s]) => `<li><i>${k[1].replace('Union Burst', 'UB').replace('EX Skill', 'EX').replace('Skill ', 'S')}</i>${esc(S[s] ? S[s][0] : '?')}</li>`).join('')}</ul>
+      <ul class="kit">${main.map(([k, s]) => `<li><i>${k[1].replace('Union Burst', 'UB').replace('EX Skill', 'EX').replace('Skill ', 'S')}</i>${esc(S[s] ? S[s][0] : '?')}${JP && S[s] && S[s][2] ? `<span class="jpk">${esc(S[s][2])}</span>` : ''}</li>`).join('')}</ul>
       <div class="acts"><button type="button" class="own-btn" data-own="${u.id}" aria-pressed="${own}">I own this</button><button type="button" data-open="${u.id}">Details</button></div>
     </div>
   </article>`;
@@ -456,9 +460,6 @@ function toggleUnit(id, force) {
   if (!open) { openUnits.delete(id); return; }
   openUnits.add(id);
   art.insertAdjacentHTML('beforeend', unitDetail(u));
-}
-function rerenderOpen() {
-  openUnits.forEach(id => { if (document.getElementById('d' + id)) toggleUnit(id, true); });
 }
 $('#ch-q').addEventListener('input', e => { CH.q = e.target.value; renderCh(); });
 $('#ch-el').addEventListener('click', e => {
