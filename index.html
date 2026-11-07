@@ -47,10 +47,25 @@ header p b { color: var(--ink); font-weight: 600; }
 .legend { display: flex; flex-wrap: wrap; gap: 8px 16px; color: var(--muted); font-size: 12px; margin-top: 14px; align-items: center; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .jpt { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); margin-left: auto; }
-details.box { margin-top: 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); max-width: 780px; }
-details.box > summary { cursor: pointer; padding: 10px 14px; font-weight: 600; }
-details.box > div { padding: 0 14px 14px; display: grid; gap: 8px; font-size: 13px; }
-details.box ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+/* Pages (7 Nov 2026): Characters, How to read and Collection are views of the same page, switched by the bottom tab bar (and #guide / #collection). */
+.view > h2.ph { font: 700 24px/1.2 var(--display); margin: 22px 0 12px; }
+.page { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); max-width: 780px; padding: 14px 16px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; font-size: 14px; }
+.page ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+#own-status { margin: 0; font-weight: 600; }
+/* Search, filters and sort live in one collapsed menu; its bar keeps the counter and how many filters are on. */
+details.filters > summary { list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); font-weight: 600; }
+details.filters > summary::-webkit-details-marker { display: none; }
+details.filters > summary::before { content: "▸"; color: var(--accent); display: inline-block; transition: transform .15s; }
+details.filters[open] > summary::before { transform: rotate(90deg); }
+details.filters > summary .count { font-weight: 400; }
+.fpanel { display: grid; gap: 8px; padding-top: 10px; }
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: flex; justify-content: center; background: color-mix(in srgb, var(--surface) 96%, transparent); border-top: 1px solid var(--line); padding: 0 max(8px, env(safe-area-inset-right, 0px)) env(safe-area-inset-bottom, 0px) max(8px, env(safe-area-inset-left, 0px)); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.tabbar button { all: unset; box-sizing: border-box; flex: 1 1 0; max-width: 200px; min-height: 56px; display: grid; justify-items: center; align-content: center; gap: 3px; padding: 7px 4px; font: 600 11.5px/1.1 var(--body); color: var(--muted); cursor: pointer; text-align: center; -webkit-tap-highlight-color: transparent; }
+.tabbar button svg { width: 22px; height: 22px; }
+.tabbar button[aria-current="page"] { color: var(--accent); }
+.tabbar button:hover { color: var(--ink); }
+.tabbar button[aria-current="page"]:hover { color: var(--accent); }
+.tabbar button:focus-visible { outline: 2px solid var(--accent); outline-offset: -4px; border-radius: 10px; }
 .abbr { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 4px 14px; font-size: 13px; }
 .abbr code { font: 500 12px var(--mono); color: var(--accent); margin-right: 6px; }
 .tools { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 3; background: var(--bg); padding-block: 12px 10px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
@@ -104,7 +119,6 @@ button.own-btn::before { content: "+"; display: inline-block; width: 1.1em; font
 button.own-btn[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--bg); }
 button.own-btn[aria-pressed="true"]::before { content: "✓"; }
 .entry.own h2 button::after { content: " ✓"; color: var(--accent); font-weight: 900; }
-.owntools > div { grid-template-columns: minmax(0, 1fr); }
 .owntools .row button { border-radius: 6px; }
 .owntools .msg { min-height: 1.4em; margin: 0; font-size: 12.5px; color: var(--muted); }
 .owntools .msg.err { color: var(--accent); }
@@ -138,7 +152,7 @@ button.own-btn[aria-pressed="true"]::before { content: "✓"; }
 .empty { color: var(--muted); padding: 30px 4px; text-align: center; }
 .stars { color: var(--gold); letter-spacing: 1px; }
 a.ext { color: var(--accent); }
-.to-top { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 4; width: 46px; height: 46px; padding: 0; display: grid; place-items: center; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--ink); box-shadow: 0 2px 12px color-mix(in srgb, var(--ink) 24%, transparent); }
+.to-top { position: fixed; right: max(16px, env(safe-area-inset-right, 0px)); bottom: calc(72px + env(safe-area-inset-bottom, 0px)); z-index: 4; width: 46px; height: 46px; padding: 0; display: grid; place-items: center; border-radius: 50%; background: var(--surface); border: 1px solid var(--line); color: var(--ink); box-shadow: 0 2px 12px color-mix(in srgb, var(--ink) 24%, transparent); }
 .to-top:hover { border-color: var(--accent); color: var(--accent); }
 header h1:focus { outline: none; }
 .b.gw { background: transparent; border: 1px solid var(--line); padding: 3px 6px; }
@@ -187,31 +201,18 @@ header .box, .tools select, .tools input, .tools button { text-shadow: none; }
 <header>
   <h1><small>PRINCESS CONNECT! Re:Dive · JP</small>Pricodex</h1>
   <div class="rule" aria-hidden="true"><i style="background:var(--fire)"></i><i style="background:var(--water)"></i><i style="background:var(--wind)"></i><i style="background:var(--light)"></i><i style="background:var(--dark)"></i></div>
-  <p>Every playable character from the <b>Japanese server's</b> master data, pulled <b>6 November 2026</b>: kits with skill types, roles, elements and unique equipment.</p>
+  <p>Every playable character from the <b>Japanese server's</b> master data, pulled <b>7 November 2026</b>: kits with skill types, roles, elements and unique equipment.</p>
   <div class="legend" id="legend"></div>
-  <details class="box">
-    <summary>How to read this</summary>
-    <div>
-      <ul>
-        <li><b>Position</b> comes from the attack range: Front under 300, Middle 300 to 599, Back 600 and over. Lower range stands further forward.</li>
-        <li><b>Element</b> and <b>role</b> are the game's own tags. The portrait is the character's highest-star icon from the game, framed in its element's colour.</li>
-        <li><b>Skills</b>: “Union Burst ★6” is the 6★ Union Burst. “+” and “++” are the upgraded versions. SP skills belong to a special mode or form. The EX skill is the passive.</li>
-        <li><b>Skill types</b>: the grey label on a skill is the game's own category for it (its icon). The outlined tags come from the skill's actual effects in the data, so one skill can carry several, and conditional effects count too. A character's “Effects” line and the Skill effects filter cover every version of its skills. Buff and Heal include effects on the character itself, so nearly everyone has Buff: they are shown but not offered as filters (the Role filter finds team buffers and healers). Ally TP leaves out TP a character gives only itself. Taunt, dispel and summons are not tagged.</li>
-        <li><b>GameWith</b>: the tier and the score out of 10 are GameWith's own overall ratings (gamewith.jp), copied by hand on <span id="gw-date"></span>. They are their editorial opinion, not game data, and they move with the meta; their pages show no update date. Tier 0 is the best, Tier 4 the lowest priority, which they say does not mean weak. The score is the one given before ★6; characters with ★6 have a second score, and a “?” marks a provisional one. The GW score filter and sort use the ★6 score when there is one.</li>
-        <li><b>English text</b>: names and descriptions come from the closed EN server when the skill is unchanged since then. Everything newer is a fan translation made for this codex, marked <span class="b ghost">fan TL</span>. Turn on Japanese text to compare with what you see in game.</li>
-        <li><b>Your roster</b>: press “I own this” on a character, then use the Show filter to list owned or missing ones. The list is saved in this browser only, so each person who opens the link keeps their own. “Collection tools” has a backup code to move it to another device.</li>
-      </ul>
-      <div class="abbr" id="abbr"></div>
-      <p class="note">Data: JP master database mirrored by <a class="ext" href="https://github.com/Expugn/priconne-database" target="_blank" rel="noopener">Expugn/priconne-database</a>. Character icons are taken from the game, © Cygames. Tiers and scores: GameWith. Fan-made reference, not affiliated with Cygames.</p>
-    </div>
-  </details>
 </header>
 
-<section id="p-ch">
+<section id="p-ch" class="view">
   <div class="tools">
+    <details class="filters" id="filters">
+      <summary><span class="sum-t">Search, filters &amp; sort</span><span class="b accent" id="f-active" hidden></span><span class="count" id="ch-count"></span></summary>
+      <div class="fpanel">
     <div class="row">
       <input type="search" id="ch-q" placeholder="Search a character, in English or Japanese" aria-label="Search characters">
-      <span class="count" id="ch-count"></span>
+      <button type="button" class="dir" id="ch-reset">Reset filters</button>
     </div>
     <div class="row"><span id="ch-el" class="row"></span>
       <button type="button" id="ch-six" aria-pressed="false">★6 available</button>
@@ -233,10 +234,34 @@ header .box, .tools select, .tools input, .tools button { text-shadow: none; }
       <span class="field"><span class="lbl">Sort</span><select id="ch-sort"><option value="pos">Range</option><option value="name">Name</option><option value="id">Unit ID</option><option value="star">Starting ★</option></select></span>
       <button class="dir" id="ch-dir" type="button"></button>
     </div>
+      </div>
+    </details>
   </div>
-  <details class="box owntools">
-    <summary>Collection tools</summary>
-    <div>
+  <div class="list" id="ch-list"></div>
+</section>
+
+<section id="p-guide" class="view" hidden>
+  <h2 class="ph">How to read this</h2>
+  <div class="page">
+      <ul>
+        <li><b>Finding characters</b>: “Search, filters &amp; sort” opens the search box, the filters and the sort; the label shows how many filters are on, and “Reset filters” clears them all (the sort stays).</li>
+        <li><b>Position</b> comes from the attack range: Front under 300, Middle 300 to 599, Back 600 and over. Lower range stands further forward.</li>
+        <li><b>Element</b> and <b>role</b> are the game's own tags. The portrait is the character's highest-star icon from the game, framed in its element's colour.</li>
+        <li><b>Skills</b>: “Union Burst ★6” is the 6★ Union Burst. “+” and “++” are the upgraded versions. SP skills belong to a special mode or form. The EX skill is the passive.</li>
+        <li><b>Skill types</b>: the grey label on a skill is the game's own category for it (its icon). The outlined tags come from the skill's actual effects in the data, so one skill can carry several, and conditional effects count too. A character's “Effects” line and the Skill effects filter cover every version of its skills. Buff and Heal include effects on the character itself, so nearly everyone has Buff: they are shown but not offered as filters (the Role filter finds team buffers and healers). Ally TP leaves out TP a character gives only itself. Taunt, dispel and summons are not tagged.</li>
+        <li><b>GameWith</b>: the tier and the score out of 10 are GameWith's own overall ratings (gamewith.jp), copied by hand on <span id="gw-date"></span>. They are their editorial opinion, not game data, and they move with the meta; their pages show no update date. Tier 0 is the best, Tier 4 the lowest priority, which they say does not mean weak. The score is the one given before ★6; characters with ★6 have a second score, and a “?” marks a provisional one. The GW score filter and sort use the ★6 score when there is one.</li>
+        <li><b>English text</b>: names and descriptions come from the closed EN server when the skill is unchanged since then. Everything newer is a fan translation made for this codex, marked <span class="b ghost">fan TL</span>. Turn on “Show Japanese text” to add the Japanese text to the cards and details, to compare with what you see in game.</li>
+        <li><b>Your roster</b>: press “I own this” on a character, then use the Show filter (under “Search, filters &amp; sort”) to list owned or missing ones. The list is saved in this browser only, so each person who opens the link keeps their own. The Collection page has a backup code to move it to another device.</li>
+      </ul>
+      <div class="abbr" id="abbr"></div>
+      <p class="note">Data: JP master database mirrored by <a class="ext" href="https://github.com/Expugn/priconne-database" target="_blank" rel="noopener">Expugn/priconne-database</a>. Character icons are taken from the game, © Cygames. Tiers and scores: GameWith. Fan-made reference, not affiliated with Cygames.</p>
+  </div>
+</section>
+
+<section id="p-coll" class="view" hidden>
+  <h2 class="ph">Collection</h2>
+  <div class="page owntools">
+    <p id="own-status"></p>
       <div class="row">
         <button type="button" id="own-mark">Mark shown as owned</button>
         <button type="button" id="own-clear">Unmark shown</button>
@@ -245,13 +270,16 @@ header .box, .tools select, .tools input, .tools button { text-shadow: none; }
       </div>
       <textarea id="own-code" rows="3" spellcheck="false" aria-label="Backup code" placeholder="Backup code. Copy it here, or paste one from another device and press “Add from backup code”."></textarea>
       <p class="msg" id="own-msg" role="status" aria-live="polite"></p>
-      <p class="note" id="own-note">“Shown” means the characters left after your current filters. Adding from a backup code only adds characters; it never removes any.</p>
-    </div>
-  </details>
-  <div class="list" id="ch-list"></div>
+      <p class="note" id="own-note">“Shown” means the characters the Characters page lists with your current search and filters. Adding from a backup code only adds characters; it never removes any.</p>
+  </div>
 </section>
 
 </div>
+<nav class="tabbar" aria-label="Pages">
+  <button type="button" data-view="characters" aria-current="page"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Characters</span></button>
+  <button type="button" data-view="guide"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span>How to read</span></button>
+  <button type="button" data-view="collection"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 4h14v16l-7-4-7 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9 9.5l2 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Collection</span></button>
+</nav>
 <button type="button" id="to-top" class="to-top" aria-label="Back to top" title="Back to top" hidden><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M5 15l7-7 7 7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 
 <script>
@@ -406,11 +434,18 @@ function chEntry(u) {
   </article>`;
 }
 let shown = 0;
-const updateCount = () => { $('#ch-count').textContent = `${shown} of ${U.length} · ${ownCount()} owned`; };
+const updateCount = () => {
+  $('#ch-count').textContent = `${shown} of ${U.length} · ${ownCount()} owned`;
+  $('#own-status').textContent = `You own ${ownCount()} of ${U.length} characters. “Shown” below means the ${shown} characters the Characters page lists now.`;
+};
+/* How many filters are on (the search counts as one, the sort does not): shown on the bar of the collapsed menu. */
+const activeFilters = () => [CH.q.trim(), CH.el.size, CH.fx.size, CH.gt, CH.gs, CH.pos, CH.at, CH.role, CH.six, CH.ue2, CH.lim >= 0, CH.own !== 'all'].filter(Boolean).length;
 function renderCh() {
   const list = chFiltered();
   shown = list.length;
   updateCount();
+  const nf = activeFilters(), fa = $('#f-active');
+  fa.hidden = !nf; fa.textContent = `${nf} active`;
   $('#ch-list').innerHTML = list.length ? list.map(chEntry).join('') : '<p class="empty">No character matches these filters.</p>';
   $('#ch-dir').textContent = CH.dir > 0 ? '↑ Ascending' : '↓ Descending';
   openUnits.forEach(id => { if (document.getElementById('u' + id)) toggleUnit(id, true); });
@@ -491,6 +526,14 @@ for (const [id, key] of [['#ch-six', 'six'], ['#ch-ue2', 'ue2']]) $(id).addEvent
 $('#ch-lim').addEventListener('click', () => { CH.lim = CH.lim === 1 ? -1 : 1; syncLim(); renderCh(); });
 $('#ch-perm').addEventListener('click', () => { CH.lim = CH.lim === 0 ? -1 : 0; syncLim(); renderCh(); });
 function syncLim() { $('#ch-lim').setAttribute('aria-pressed', CH.lim === 1); $('#ch-perm').setAttribute('aria-pressed', CH.lim === 0); }
+$('#ch-reset').addEventListener('click', () => {     /* every filter and the search back to "all"; the sort stays */
+  Object.assign(CH, { q: '', gt: '', gs: 0, pos: '', at: 0, role: 0, six: false, ue2: false, lim: -1, own: 'all' });
+  CH.el.clear(); CH.fx.clear();
+  $('#ch-q').value = '';
+  for (const [sel, v] of [['#ch-gt', ''], ['#ch-gs', '0'], ['#ch-pos', ''], ['#ch-at', '0'], ['#ch-role', '0'], ['#ch-own', 'all']]) $(sel).value = v;
+  document.querySelectorAll('#ch-el [data-el], #ch-fx [data-fx], #ch-six, #ch-ue2').forEach(b => b.setAttribute('aria-pressed', 'false'));
+  syncLim(); renderCh();
+});
 
 /* roster: toggle one character in place (the filter applies again on the next render), bulk actions, backup code */
 $('#ch-own').addEventListener('change', e => { CH.own = e.target.value; renderCh(); });
@@ -571,8 +614,35 @@ if (artEl) {
   syncArt();
 }
 
+/* ---------- pages (7 Nov 2026): Characters, How to read, Collection, switched by the bottom tab bar ----------
+   Each page has its own address (#guide, #collection), so the phone's Back button returns to the previous page, and the
+   list keeps its scroll position. If the host forbids changing the address, the tabs still switch the page. */
+const VIEWS = { characters: 'p-ch', guide: 'p-guide', collection: 'p-coll' };
+const viewScroll = {};
+let VIEW = null;
+const viewFromHash = () => ({ '#guide': 'guide', '#collection': 'collection' })[location.hash] || 'characters';
+function showView(v) {
+  if (!VIEWS[v]) v = 'characters';
+  if (v === VIEW) return;
+  if (VIEW) viewScroll[VIEW] = window.scrollY || document.documentElement.scrollTop || 0;
+  for (const [k, id] of Object.entries(VIEWS)) document.getElementById(id).hidden = k !== v;
+  document.querySelectorAll('.tabbar [data-view]').forEach(b => b.dataset.view === v ? b.setAttribute('aria-current', 'page') : b.removeAttribute('aria-current'));
+  VIEW = v;
+  window.scrollTo(0, viewScroll[v] || 0);
+  syncTop(); if (artEl) syncArt();
+}
+$('.tabbar').addEventListener('click', e => {
+  const b = e.target.closest('[data-view]'); if (!b) return;
+  const v = b.dataset.view;
+  if (v === VIEW) { window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); return; }
+  showView(v);
+  try { location.hash = v === 'characters' ? '' : v; } catch (err) {}
+});
+addEventListener('hashchange', () => showView(viewFromHash()));
+
 /* ---------- boot ---------- */
 renderCh();
+showView(viewFromHash());
 </script>
 
 <script>

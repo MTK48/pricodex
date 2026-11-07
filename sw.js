@@ -1,5 +1,5 @@
 /* Pricodex service worker, written by pipeline/pwa.py. VERSION changes with every new page. */
-const VERSION = '645d15faa657';
+const VERSION = 'b7f5b8c208f6';
 const CACHE = 'pricodex-' + VERSION, FONTS = 'pricodex-fonts';
 const CORE = ['./', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'apple-touch-icon.png', 'favicon-32.png'];
 
